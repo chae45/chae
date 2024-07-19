@@ -29,12 +29,12 @@ spec:
             matchLabels:
               app: tomcat
       containers:
-      - image: ehddlf5709/tomcatset:v1.91
+      - image: chae45/tess:v1.0
         name: tomcat
         ports:
         - containerPort: 8080
         volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT"
+        - mountPath: "/opt/tomcat/webapps/ROOT/data"
           name: html
         resources:
           limits:
