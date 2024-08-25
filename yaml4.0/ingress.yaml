@@ -23,28 +23,28 @@ spec:
               name: nginx-index-service
               port:
                 number: 80
-        - path: /login
+        - path: /login.jsp
           pathType: Prefix
           backend:
             service:
               name: nginx-login-service
               port:
                 number: 80
-        - path: /join
+        - path: /join.jsp
           pathType: Prefix
           backend:
             service:
               name: nginx-join-service
               port:
                 number: 80
-        - path: /menu
+        - path: /menu.jsp
           pathType: Prefix
           backend:
             service:
               name: nginx-menu-service
               port:
                 number: 80
-        - path: /mypage
+        - path: /mypage.jsp
           pathType: Prefix
           backend:
             service:
