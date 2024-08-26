@@ -38,9 +38,6 @@ spec:
         name: nginx-index-deploy
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/data"
-          name: nginx-efs
         resources:
           limits:
             cpu: 200m
@@ -57,10 +54,6 @@ spec:
           timeoutSeconds: 20
           successThreshold: 1
           failureThreshold: 2
-      volumes:
-        - name: nginx-efs
-          persistentVolumeClaim:
-            claimName: pvc-nginx
 
 ---
 apiVersion: apps/v1
@@ -98,9 +91,6 @@ spec:
         name: nginx-menu-deploy
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/data"
-          name: nginx-efs
         resources:
           limits:
             cpu: 200m
@@ -117,10 +107,6 @@ spec:
           timeoutSeconds: 20
           successThreshold: 1
           failureThreshold: 2
-      volumes:
-        - name: nginx-efs
-          persistentVolumeClaim:
-            claimName: pvc-nginx
 
             
 ---
@@ -159,9 +145,6 @@ spec:
         name: nginx-login-deploy
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/data"
-          name: nginx-efs
         resources:
           limits:
             cpu: 200m
@@ -178,10 +161,6 @@ spec:
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: nginx-efs
-          persistentVolumeClaim:
-            claimName: pvc-nginx
 
 ---
 apiVersion: apps/v1
@@ -219,9 +198,6 @@ spec:
         name: nginx-join-deploy
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/data"
-          name: nginx-efs
         resources:
           limits:
             cpu: 200m
@@ -238,10 +214,6 @@ spec:
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: nginx-efs
-          persistentVolumeClaim:
-            claimName: pvc-nginx
 
 
 ---
@@ -280,9 +252,6 @@ spec:
         name: nginx-mypage-deploy
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/data"
-          name: nginx-efs
         resources:
           limits:
             cpu: 200m
@@ -299,8 +268,4 @@ spec:
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: nginx-efs
-          persistentVolumeClaim:
-            claimName: pvc-nginx
 
