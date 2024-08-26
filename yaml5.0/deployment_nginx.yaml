@@ -51,7 +51,7 @@ spec:
               app: nginx
       containers:
       - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
-        name: index
+        name: nginx-index-deploy
         ports:
         - containerPort: 80
         resources:
@@ -120,7 +120,7 @@ spec:
               app: nginx
       containers:
       - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-menu:v1.0
-        name: menu
+        name: nginx-menu-deploy
         ports:
         - containerPort: 80
         resources:
@@ -132,7 +132,7 @@ spec:
             memory: 250Mi
         livenessProbe:
           httpGet:
-            path: /
+            path: /menu.jsp
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
@@ -186,7 +186,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              app: nginx
+              app: nginx-login-deploy
       containers:
       - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-login:v1.0
         name: login
@@ -201,7 +201,7 @@ spec:
             memory: 250Mi
         livenessProbe:
           httpGet:
-            path: /
+            path: /login.jsp
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
@@ -258,7 +258,7 @@ spec:
               app: nginx
       containers:
       - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-join:v1.0
-        name: join
+        name: nginx-join-deploy
         ports:
         - containerPort: 80
         resources:
@@ -270,7 +270,7 @@ spec:
             memory: 250Mi
         livenessProbe:
           httpGet:
-            path: /
+            path: /join.jsp
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
@@ -328,7 +328,7 @@ spec:
               app: nginx
       containers:
       - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-mypage:v1.0
-        name: join
+        name: nginx-mypage-deploy
         ports:
         - containerPort: 80
         resources:
@@ -340,7 +340,7 @@ spec:
             memory: 250Mi
         livenessProbe:
           httpGet:
-            path: /
+            path: /mypage.jsp
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
