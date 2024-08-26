@@ -12,4 +12,4 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-026cba3b23788e444 #EFS id값으로 수정필요
+    volumeHandle: fs-01ae6a266dbd19c7e #EFS id값으로 수정필요
