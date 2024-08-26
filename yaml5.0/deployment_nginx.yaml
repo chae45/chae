@@ -54,9 +54,6 @@ spec:
         name: index
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: html
         resources:
           limits:
             cpu: 200m
@@ -126,9 +123,6 @@ spec:
         name: menu
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: html
         resources:
           limits:
             cpu: 200m
@@ -198,9 +192,6 @@ spec:
         name: login
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: html
         resources:
           limits:
             cpu: 200m
@@ -270,9 +261,6 @@ spec:
         name: join
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: html
         resources:
           limits:
             cpu: 200m
@@ -343,9 +331,6 @@ spec:
         name: join
         ports:
         - containerPort: 80
-        volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: html
         resources:
           limits:
             cpu: 200m
