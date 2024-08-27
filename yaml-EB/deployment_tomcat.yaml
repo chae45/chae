@@ -63,9 +63,9 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 60
-          timeoutSeconds: 20
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 90
           successThreshold: 1
           failureThreshold: 3
       volumes:
@@ -139,9 +139,9 @@ spec:
           httpGet:
             path: /menu.jsp
             port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 60
-          timeoutSeconds: 60
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 90
           successThreshold: 1
           failureThreshold: 3
       volumes:
@@ -214,9 +214,9 @@ spec:
           httpGet:
             path: /login.jsp
             port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 60
-          timeoutSeconds: 60
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 90
           successThreshold: 1
           failureThreshold: 3
       volumes:
@@ -289,9 +289,9 @@ spec:
           httpGet:
             path: /join.jsp
             port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 60
-          timeoutSeconds: 60
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 90
           successThreshold: 1
           failureThreshold: 3
       volumes:
@@ -366,9 +366,9 @@ spec:
           httpGet:
             path: /mypage.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 60
-          timeoutSeconds: 20
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 90
           successThreshold: 1
           failureThreshold: 3
       volumes:
