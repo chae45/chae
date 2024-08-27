@@ -53,7 +53,7 @@ spec:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
         name: nginx-index-deploy
         ports:
-        - containerPort: 80
+        - containerPort: 443
         resources:
           limits:
             cpu: 250m
@@ -64,12 +64,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 443
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
+
 
 ---
 apiVersion: apps/v1
@@ -122,7 +124,7 @@ spec:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-menu:v1.0
         name: nginx-menu-deploy
         ports:
-        - containerPort: 80
+        - containerPort: 443
         resources:
           limits:
             cpu: 250m
@@ -133,7 +135,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /menu.jsp
-            port: 80
+            port: 443
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           timeoutSeconds: 60
@@ -191,7 +194,7 @@ spec:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-login:v1.0
         name: login
         ports:
-        - containerPort: 80
+        - containerPort: 443
         resources:
           limits:
             cpu: 200m
@@ -202,7 +205,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /login.jsp
-            port: 80
+            port: 443
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           timeoutSeconds: 60
@@ -260,7 +264,7 @@ spec:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-join:v1.0
         name: nginx-join-deploy
         ports:
-        - containerPort: 80
+        - containerPort: 443
         resources:
           limits:
             cpu: 200m
@@ -271,7 +275,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /join.jsp
-            port: 80
+            port: 443
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           timeoutSeconds: 60
@@ -330,7 +335,7 @@ spec:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-mypage:v1.0
         name: nginx-mypage-deploy
         ports:
-        - containerPort: 80
+        - containerPort: 443
         resources:
           limits:
             cpu: 200m
@@ -341,7 +346,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /mypage.jsp
-            port: 80
+            port: 443
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           timeoutSeconds: 60
