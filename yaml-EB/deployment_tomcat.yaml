@@ -45,7 +45,7 @@ spec:
             matchLabels:
               app: tomcat
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-index:v20.0
+      - image: chae45/bb:v1.0
         name: tomcat-index-deploy
         ports:
         - containerPort: 8080
@@ -121,7 +121,7 @@ spec:
             matchLabels:
               app: tomcat
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v20.0
+      - image: chae45/cc:v1.0
         name: tomcat-menu-deploy
         ports:
         - containerPort: 8080
