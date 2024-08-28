@@ -22,21 +22,6 @@ spec:
         name: index
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 90
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - tomcat
-                    - key: name
-                      operator: In
-                      values:
-                        - index
-                topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
@@ -46,6 +31,13 @@ spec:
                     values:
                       - index
               topologyKey: topology.kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: index
       containers:
         - image: chae45/aaa:v1.0
           name: tomcat-index-deploy
@@ -75,6 +67,7 @@ spec:
           persistentVolumeClaim:
             claimName: efs-claim
 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -100,21 +93,6 @@ spec:
         name: menu
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 90
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - tomcat
-                    - key: name
-                      operator: In
-                      values:
-                        - menu
-                topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
@@ -124,6 +102,13 @@ spec:
                     values:
                       - menu
               topologyKey: topology.kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: menu
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v1.0
           name: tomcat-menu-deploy
@@ -179,21 +164,6 @@ spec:
         name: login
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 90
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - tomcat
-                    - key: name
-                      operator: In
-                      values:
-                        - login
-                topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
@@ -203,6 +173,13 @@ spec:
                     values:
                       - login
               topologyKey: topology.kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: login
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-login:v1.0
           name: tomcat-login-deploy
@@ -258,21 +235,6 @@ spec:
         name: join
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 90
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - tomcat
-                    - key: name
-                      operator: In
-                      values:
-                        - join
-                topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
@@ -282,6 +244,13 @@ spec:
                     values:
                       - join
               topologyKey: topology.kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: join
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-join:v1.0
           name: tomcat-join-deploy
@@ -337,21 +306,6 @@ spec:
         name: mypage
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 90
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - tomcat
-                    - key: name
-                      operator: In
-                      values:
-                        - mypage
-                topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
@@ -361,6 +315,13 @@ spec:
                     values:
                       - mypage
               topologyKey: topology.kubernetes.io/hostname
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: mypage
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-mypage:v1.0
           name: tomcat-mypage-deploy
