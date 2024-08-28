@@ -31,20 +31,6 @@ spec:
                     values:
                       - index
               topologyKey: topology.kubernetes.io/hostname
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - tomcat
-              - key: name
-                operator: In
-                values:
-                  - index
       containers:
         - image: chae45/aaa:v1.0
           name: tomcat-index-deploy
@@ -108,20 +94,6 @@ spec:
                     values:
                       - menu
               topologyKey: topology.kubernetes.io/hostname
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - tomcat
-              - key: name
-                operator: In
-                values:
-                  - menu
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v1.0
           name: tomcat-menu-deploy
@@ -186,20 +158,6 @@ spec:
                     values:
                       - login
               topologyKey: topology.kubernetes.io/hostname
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - tomcat
-              - key: name
-                operator: In
-                values:
-                  - login
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-login:v1.0
           name: tomcat-login-deploy
@@ -264,20 +222,6 @@ spec:
                     values:
                       - join
               topologyKey: topology.kubernetes.io/hostname
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - tomcat
-              - key: name
-                operator: In
-                values:
-                  - join
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-join:v1.0
           name: tomcat-join-deploy
@@ -342,20 +286,6 @@ spec:
                     values:
                       - mypage
               topologyKey: topology.kubernetes.io/hostname
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - tomcat
-              - key: name
-                operator: In
-                values:
-                  - mypage
       containers:
         - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-mypage:v1.0
           name: tomcat-mypage-deploy
