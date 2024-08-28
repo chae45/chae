@@ -142,7 +142,7 @@ spec:
           timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-		  
+
 ---
 apiVersion: apps/v1
 kind: Deployment
