@@ -22,7 +22,7 @@ spec:
         app: nginx
         name: index
         role: nin
-    spec:  # 여기에서 spec 아래로 affinity와 containers를 이동시킴
+    spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -40,16 +40,14 @@ spec:
                   - nin
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - index
-              topologyKey: topology.kubernetes.io/hostname
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - index
+            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
         name: nginx-index-deploy
@@ -116,16 +114,14 @@ spec:
                   - nme
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - menu
-              topologyKey: topology.kubernetes.io/hostname
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - menu
+            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-menu:v1.0
         name: nginx-menu-deploy
@@ -180,11 +176,7 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
-						   
-							  
-						 
-						 
+                matchExpressions:				 
                 - key: app
                   operator: In
                   values: 
@@ -195,16 +187,14 @@ spec:
                   - nlo
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - login
-              topologyKey: topology.kubernetes.io/hostname
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - login
+            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-login:v1.0
         name: nginx-login-deploy
@@ -259,11 +249,7 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
-						   
-							  
-						 
-						
+                matchExpressions:	
                 - key: app
                   operator: In
                   values: 
@@ -274,16 +260,14 @@ spec:
                   - njo
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - join
-              topologyKey: topology.kubernetes.io/hostname
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - join
+            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-join:v1.0
         name: nginx-join-deploy
@@ -339,11 +323,7 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
-						   
-							  
-						 
-						  
+                matchExpressions:		  
                 - key: app
                   operator: In
                   values: 
@@ -354,16 +334,14 @@ spec:
                   - nmy
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - mypage
-              topologyKey: topology.kubernetes.io/hostname
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - mypage
+            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-mypage:v1.0
         name: nginx-mypage-deploy
