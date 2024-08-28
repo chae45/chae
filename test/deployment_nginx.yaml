@@ -25,6 +25,15 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - index
+            topologyKey: topology.kubernetes.io/hostname
+
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 90
             podAffinityTerm:
@@ -39,15 +48,6 @@ spec:
                   values:
                   - nin
               topologyKey: topology.kubernetes.io/zone
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: name
-                operator: In
-                values:
-                - index
-            topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
         name: nginx-index-deploy
@@ -66,7 +66,7 @@ spec:
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 60
+          timeoutSeconds: 50
           successThreshold: 1
           failureThreshold: 3
 
