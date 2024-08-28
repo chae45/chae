@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-index
+  name: deploy-index
   annotations:
     kubernetes.io/change-cause: first_version
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       name: index
-      role: tin
+      role: nin
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,9 +19,9 @@ spec:
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         name: index
-        role: tin
+        role: nin
     spec:
       affinity:
         podAntiAffinity:
@@ -33,11 +33,11 @@ spec:
                 - key: app
                   operator: In
                   values: 
-                  - tomcat
+                  - nginx
                 - key: role
                   operator: In
                   values:
-                  - tin
+                  - nin
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -49,48 +49,42 @@ spec:
                 - index
             topologyKey: topology.kubernetes.io/hostname
       containers:
-      - image: chae45/aaa:v1.0
-        name: tomcat-index-deploy
+      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
+        name: nginx-index-deploy
         ports:
-        - containerPort: 8080
-        volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT/data"
-          name: tomcat-efs
+        - containerPort: 80
         resources:
           limits:
-            cpu: 300m
-            memory: 300Mi
+            cpu: 250m
+            memory: 250Mi
           requests:
-            cpu: 300m
-            memory: 300Mi
+            cpu: 250m
+            memory: 250Mi
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
-          initialDelaySeconds: 60
+            port: 80
+          initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 20
+          timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: tomcat-efs
-          persistentVolumeClaim:
-            claimName: efs-claim
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-menu
+  name: deploy-menu
   annotations:
     kubernetes.io/change-cause: first_version
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       name: menu
-      role: tme
+      role: nme
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -99,9 +93,9 @@ spec:
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         name: menu
-        role: tme
+        role: nme
     spec:
       affinity:
         podAntiAffinity:
@@ -109,15 +103,15 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
+                matchExpressions:						   	
                 - key: app
                   operator: In
                   values: 
-                  - tomcat
+                  - nginx
                 - key: role
                   operator: In
                   values:
-                  - tme
+                  - nme
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -129,48 +123,41 @@ spec:
                 - menu
             topologyKey: topology.kubernetes.io/hostname
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v1.0
-        name: tomcat-menu-deploy
+      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-menu:v1.0
+        name: nginx-menu-deploy
         ports:
-        - containerPort: 8080
-        volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT/data"
-          name: tomcat-efs
+        - containerPort: 80
         resources:
           limits:
-            cpu: 300m
-            memory: 300Mi
+            cpu: 250m
+            memory: 250Mi
           requests:
-            cpu: 300m
-            memory: 300Mi
+            cpu: 250m
+            memory: 250Mi
         livenessProbe:
           httpGet:
             path: /menu.jsp
-            port: 8080
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 50
+          timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: tomcat-efs
-          persistentVolumeClaim:
-            claimName: efs-claim
-			
+		  
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-login
+  name: deploy-login
   annotations:
     kubernetes.io/change-cause: first_version
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       name: login
-      role: tlo
+      role: nlo
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -179,9 +166,9 @@ spec:
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         name: login
-        role: tlo
+        role: nlo
     spec:
       affinity:
         podAntiAffinity:
@@ -189,15 +176,15 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
+                matchExpressions:				 
                 - key: app
                   operator: In
                   values: 
-                  - tomcat
+                  - nginx
                 - key: role
                   operator: In
                   values:
-                  - tlo
+                  - nlo
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -209,59 +196,52 @@ spec:
                 - login
             topologyKey: topology.kubernetes.io/hostname
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-login:v1.0
-        name: tomcat-login-deploy
+      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-login:v1.0
+        name: nginx-login-deploy
         ports:
-        - containerPort: 8080
-        volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT/data"
-          name: tomcat-efs
+        - containerPort: 80
         resources:
           limits:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
           requests:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
         livenessProbe:
           httpGet:
             path: /login.jsp
-            port: 8080
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 50
+          timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: tomcat-efs
-          persistentVolumeClaim:
-            claimName: efs-claim			
-			
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-join
+  name: deploy-join
   annotations:
     kubernetes.io/change-cause: first_version
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       name: join
-      role: tjo
+      role: njo
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxSurge: 50%
+      maxUnavailable: 50%
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         name: join
-        role: tjo
+        role: njo
     spec:
       affinity:
         podAntiAffinity:
@@ -269,15 +249,15 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
+                matchExpressions:	
                 - key: app
                   operator: In
                   values: 
-                  - tomcat
+                  - nginx
                 - key: role
                   operator: In
                   values:
-                  - tjo
+                  - njo
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -289,48 +269,42 @@ spec:
                 - join
             topologyKey: topology.kubernetes.io/hostname
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-join:v1.0
-        name: tomcat-join-deploy
+      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-join:v1.0
+        name: nginx-join-deploy
         ports:
-        - containerPort: 8080
-        volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT/data"
-          name: tomcat-efs
+        - containerPort: 80
         resources:
           limits:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
           requests:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
         livenessProbe:
           httpGet:
             path: /join.jsp
-            port: 8080
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 50
+          timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: tomcat-efs
-          persistentVolumeClaim:
-            claimName: efs-claim	
+
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-mypage
+  name: deploy-mypage
   annotations:
     kubernetes.io/change-cause: first_version
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       name: mypage
-      role: tmy
+      role: nmy
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -339,9 +313,9 @@ spec:
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         name: mypage
-        role: tmy
+        role: nmy
     spec:
       affinity:
         podAntiAffinity:
@@ -349,15 +323,15 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
-                matchExpressions:
+                matchExpressions:		  
                 - key: app
                   operator: In
                   values: 
-                  - tomcat
+                  - nginx
                 - key: role
                   operator: In
                   values:
-                  - tmy
+                  - nmy
               topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -369,30 +343,23 @@ spec:
                 - mypage
             topologyKey: topology.kubernetes.io/hostname
       containers:
-      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-mypage:v1.0
-        name: tomcat-mypage-deploy
+      - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-mypage:v1.0
+        name: nginx-mypage-deploy
         ports:
-        - containerPort: 8080
-        volumeMounts:
-        - mountPath: "/opt/tomcat/webapps/ROOT/data"
-          name: tomcat-efs
+        - containerPort: 80
         resources:
           limits:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
           requests:
             cpu: 200m
-            memory: 250Mi
+            memory: 200Mi
         livenessProbe:
           httpGet:
             path: /mypage.jsp
-            port: 8080
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 60
-          timeoutSeconds: 50
+          timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-      volumes:
-        - name: tomcat-efs
-          persistentVolumeClaim:
-            claimName: efs-claim
