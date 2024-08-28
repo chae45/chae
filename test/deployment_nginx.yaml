@@ -1,7 +1,7 @@
-#name: nginx-efs
-#접속 빈도 높은 페이지 :  레플리카 수 증가, 빠른 롤링 업데이트, CPU 자원 증가
-#개런티는 보장하되 maxSkew, 노드셀렉터 수정
-#최종제출시에는 index, menu 페이지는 replicas = 4로 증가(hpa도 같이 수정)
+				
+																										 
+														  
+																							
 
 apiVersion: apps/v1
 kind: Deployment
@@ -27,34 +27,34 @@ spec:
         app: nginx
         name: index
         role: nin
-spec:
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 90
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values: 
-              - nginx
-            - key: role
-              operator: In
-              values:
-              - nin
-          topologyKey: topology.kubernetes.io/zone
-    podAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: name
-              operator: In
-              values:
-              - index
-          topologyKey: topology.kubernetes.io/hostname
+    spec:  # 여기에서 spec 아래로 affinity와 containers를 이동시킴
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: 
+                  - nginx
+                - key: role
+                  operator: In
+                  values:
+                  - nin
+              topologyKey: topology.kubernetes.io/zone
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: name
+                  operator: In
+                  values:
+                  - index
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
         name: nginx-index-deploy
@@ -78,6 +78,7 @@ spec:
           failureThreshold: 3
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -90,6 +91,7 @@ spec:
     matchLabels:
       app: nginx
       name: menu
+      role: nme
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -100,6 +102,7 @@ spec:
       labels:
         app: nginx
         name: menu
+        role: nme
     spec:
       affinity:
         podAntiAffinity:
@@ -107,23 +110,27 @@ spec:
           - weight: 90
             podAffinityTerm:
               labelSelector:
+                matchExpressions:						   	
+                - key: app
+                  operator: In
+                  values: 
+                  - nginx
+                - key: role
+                  operator: In
+                  values:
+                  - nme
+              topologyKey: topology.kubernetes.io/zone
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
                 matchExpressions:
                 - key: name
                   operator: In
                   values:
                   - menu
-                - key: app
-                  operator: In
-                  values:
-                  - nginx
-              topologyKey: topology.kubernetes.io/zone
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: nginx
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-menu:v1.0
         name: nginx-menu-deploy
@@ -145,7 +152,7 @@ spec:
           timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
-
+		  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -159,6 +166,7 @@ spec:
     matchLabels:
       app: nginx
       name: login
+      role: nlo
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -169,11 +177,31 @@ spec:
       labels:
         app: nginx
         name: login
+        role: nlo
     spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 70
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+						   
+							  
+						 
+						 
+                - key: app
+                  operator: In
+                  values: 
+                  - nginx
+                - key: role
+                  operator: In
+                  values:
+                  - nlo
+              topologyKey: topology.kubernetes.io/zone
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
@@ -181,21 +209,10 @@ spec:
                   operator: In
                   values:
                   - login
-                - key: app
-                  operator: In
-                  values:
-                  - nginx
-              topologyKey: topology.kubernetes.io/zone
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: nginx-login-deploy
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-login:v1.0
-        name: login
+        name: nginx-login-deploy
         ports:
         - containerPort: 80
         resources:
@@ -228,21 +245,42 @@ spec:
     matchLabels:
       app: nginx
       name: join
+      role: njo
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxSurge: 50%
+      maxUnavailable: 50%
   template:
     metadata:
       labels:
         app: nginx
         name: join
+        role: njo
     spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 70
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+						   
+							  
+						 
+						
+                - key: app
+                  operator: In
+                  values: 
+                  - nginx
+                - key: role
+                  operator: In
+                  values:
+                  - njo
+              topologyKey: topology.kubernetes.io/zone
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
@@ -250,18 +288,7 @@ spec:
                   operator: In
                   values:
                   - join
-                - key: app
-                  operator: In
-                  values:
-                  - nginx
-              topologyKey: topology.kubernetes.io/zone
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: nginx
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-join:v1.0
         name: nginx-join-deploy
@@ -298,6 +325,7 @@ spec:
     matchLabels:
       app: nginx
       name: mypage
+      role: nmy
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -308,11 +336,31 @@ spec:
       labels:
         app: nginx
         name: mypage
+        role: nin
     spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 70
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+						   
+							  
+						 
+						  
+                - key: app
+                  operator: In
+                  values: 
+                  - nginx
+                - key: role
+                  operator: In
+                  values:
+                  - nmy
+              topologyKey: topology.kubernetes.io/zone
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
@@ -320,18 +368,7 @@ spec:
                   operator: In
                   values:
                   - mypage
-                - key: app
-                  operator: In
-                  values:
-                  - nginx
-              topologyKey: topology.kubernetes.io/zone
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: nginx
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-mypage:v1.0
         name: nginx-mypage-deploy
@@ -353,3 +390,5 @@ spec:
           timeoutSeconds: 60
           successThreshold: 1
           failureThreshold: 3
+
+
