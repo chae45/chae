@@ -10,7 +10,6 @@ spec:
     matchLabels:
       app: nginx
       name: index
-      role: nin
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -33,6 +32,8 @@ spec:
                 values:
                 - index
             topologyKey: topology.kubernetes.io/hostname
+
+
 
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 90
