@@ -10,7 +10,6 @@ spec:
     matchLabels:
       app: tomcat
       name: index
-      role: tin
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,7 +20,6 @@ spec:
       labels:
         app: tomcat
         name: index
-        role: tin
     spec:
       affinity:
         podAntiAffinity:
@@ -37,7 +35,7 @@ spec:
                     - key: role
                       operator: In
                       values:
-                        - tin
+                        - index
                 topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -90,7 +88,6 @@ spec:
     matchLabels:
       app: tomcat
       name: menu
-      role: tme
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -101,7 +98,6 @@ spec:
       labels:
         app: tomcat
         name: menu
-        role: tme
     spec:
       affinity:
         podAntiAffinity:
@@ -117,7 +113,7 @@ spec:
                     - key: role
                       operator: In
                       values:
-                        - tme
+                        - menu
                 topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -171,7 +167,6 @@ spec:
     matchLabels:
       app: tomcat
       name: login
-      role: tlo
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -182,7 +177,6 @@ spec:
       labels:
         app: tomcat
         name: login
-        role: tlo
     spec:
       affinity:
         podAntiAffinity:
@@ -198,7 +192,7 @@ spec:
                     - key: role
                       operator: In
                       values:
-                        - tlo
+                        - login
                 topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -252,7 +246,6 @@ spec:
     matchLabels:
       app: tomcat
       name: join
-      role: tjo
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -263,7 +256,6 @@ spec:
       labels:
         app: tomcat
         name: join
-        role: tjo
     spec:
       affinity:
         podAntiAffinity:
@@ -279,7 +271,7 @@ spec:
                     - key: role
                       operator: In
                       values:
-                        - tjo
+                        - join
                 topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -333,7 +325,6 @@ spec:
     matchLabels:
       app: tomcat
       name: mypage
-      role: tmy
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -344,7 +335,6 @@ spec:
       labels:
         app: tomcat
         name: mypage
-        role: tmy
     spec:
       affinity:
         podAntiAffinity:
@@ -360,7 +350,7 @@ spec:
                     - key: role
                       operator: In
                       values:
-                        - tmy
+                        - mypage
                 topologyKey: topology.kubernetes.io/zone
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -399,4 +389,3 @@ spec:
         - name: tomcat-efs
           persistentVolumeClaim:
             claimName: efs-claim
-
