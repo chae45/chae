@@ -16,13 +16,6 @@ spec:
     - host: leesh.shop
       http: 
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: nginx-index-service
-              port:
-                number: 80
         - path: /menu.jsp
           pathType: Prefix
           backend:
@@ -49,5 +42,12 @@ spec:
           backend:
             service:
               name: nginx-mypage-service
+              port:
+                number: 80
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: nginx-index-service
               port:
                 number: 80
