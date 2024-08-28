@@ -23,21 +23,30 @@ spec:
     spec:
       affinity:
         podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: name
-                    operator: In
-                    values:
-                      - index
-              topologyKey: topology.kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 90
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: name
+                      operator: In
+                      values:
+                        - index
+                topologyKey: topology.kubernetes.io/hostname
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
-            matchLabels:
-              app: index
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - tomcat
+              - key: name
+                operator: In
+                values:
+                  - index
       containers:
         - image: chae45/aaa:v1.0
           name: tomcat-index-deploy
@@ -66,7 +75,6 @@ spec:
         - name: tomcat-efs
           persistentVolumeClaim:
             claimName: efs-claim
-
 
 ---
 apiVersion: apps/v1
