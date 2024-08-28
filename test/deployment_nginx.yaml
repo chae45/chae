@@ -315,7 +315,7 @@ spec:
       labels:
         app: nginx
         name: mypage
-        role: nin
+        role: nmy
     spec:
       affinity:
         podAntiAffinity:
