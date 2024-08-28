@@ -156,7 +156,7 @@ spec:
         - name: tomcat-efs
           persistentVolumeClaim:
             claimName: efs-claim
-			
+
 ---
 apiVersion: apps/v1
 kind: Deployment
