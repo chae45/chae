@@ -50,7 +50,7 @@ spec:
             matchLabels:
               app: nginx
       containers:
-      - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index:v1.0
+      - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/nginx-index
         name: nginx-index-deploy
         ports:
         - containerPort: 80
