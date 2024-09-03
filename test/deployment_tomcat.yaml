@@ -32,7 +32,7 @@ spec:
                       - index
               topologyKey: topology.kubernetes.io/hostname
       containers:
-        - image: chae45/aaa:v1.0
+        - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-index:v3.0
           name: tomcat-index-deploy
           ports:
             - containerPort: 8080
@@ -95,7 +95,7 @@ spec:
                       - menu
               topologyKey: topology.kubernetes.io/hostname
       containers:
-        - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v1.0
+        - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-menu:v3.0
           name: tomcat-menu-deploy
           ports:
             - containerPort: 8080
@@ -159,7 +159,7 @@ spec:
                       - login
               topologyKey: topology.kubernetes.io/hostname
       containers:
-        - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-login:v1.0
+        - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-login:v3.0
           name: tomcat-login-deploy
           ports:
             - containerPort: 8080
@@ -223,7 +223,7 @@ spec:
                       - join
               topologyKey: topology.kubernetes.io/hostname
       containers:
-        - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-join:v1.0
+        - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-join:v3.0
           name: tomcat-join-deploy
           ports:
             - containerPort: 8080
@@ -287,7 +287,7 @@ spec:
                       - mypage
               topologyKey: topology.kubernetes.io/hostname
       containers:
-        - image: 637423521175.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-mypage:v1.0
+        - image: 975050099328.dkr.ecr.ap-northeast-2.amazonaws.com/tomcat-mypage:v3.0
           name: tomcat-mypage-deploy
           ports:
             - containerPort: 8080
