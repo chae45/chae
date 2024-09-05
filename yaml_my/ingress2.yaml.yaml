@@ -15,6 +15,13 @@ spec:
     - host: eunchae.shop
       http: 
         paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: nginx-index-service
+              port:
+                number: 80
         - path: /menu.jsp
           pathType: Prefix
           backend:
@@ -29,10 +36,4 @@ spec:
               name: nginx-join-service
               port:
                 number: 80
-        - path: /mypage.jsp
-          pathType: Prefix
-          backend:
-            service:
-              name: nginx-mypage-service
-              port:
-                number: 80
+
