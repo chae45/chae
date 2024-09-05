@@ -29,3 +29,10 @@ spec:
               name: nginx-login-service
               port:
                 number: 80
+        - path: /mypage.jsp
+          pathType: Prefix
+          backend:
+            service:
+              name: nginx-mypage-service
+              port:
+                number: 80
